@@ -6,7 +6,9 @@
 		"start": "webpack-dev-server ./webpack.config.js --content-base docs"
 	},
 	"dependencies": {
+		"@types/matter-js": "^0.10.0",
 		"@types/pixi.js": "^4.7.3",
+		"matter-js": "^0.14.1",
 		"pixi.js": "^4.7.3",
 		"ts-loader": "^4.2.0",
 		"typescript": "^2.8.3",
