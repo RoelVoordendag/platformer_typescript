@@ -1,11 +1,13 @@
 import * as PIXI from "pixi.js";
 import Map from "./World/Map";
+import CreateWorld from "./World/CreateWorld";
 
 export default class Game {
 
   static instance: Game;
   public pixi: PIXI.Application;
-  public map: Map;
+  public length:number;
+  // public map: Map;
 
   //singleton function 
   static getInstance(): Game {
@@ -18,11 +20,14 @@ export default class Game {
     //testing webpack
     console.log("Hallo");
 
+    //length of the map
+    this.length = 3000;
+
     //making the canvas black and setting the canvas full screen
-    this.pixi = new PIXI.Application(innerWidth, innerHeight, {
+    this.pixi = new PIXI.Application(this.length, innerHeight, {
       backgroundColor: 0x000000,
       resolution: window.devicePixelRatio,
-      autoResize: true
+      autoResize: true,
     });
     PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
@@ -30,32 +35,21 @@ export default class Game {
 
     //loading assets
     PIXI.loader
-      .add("res/images/treasureHunter.json")
-      .load(this.setup)
+      .add('test' , "res/images/treasureHunter.json")
+      .add("tileset" ,"res/images/tileset.json")
+      .load()  
+      PIXI.loader.onComplete.add(() => {this.setup()});
+      
+  }
+  private setup() {
+    console.log("setup is run");
+    //generate the world for the character
+    let makeWorld = new CreateWorld(this.length /64, 3);
 
-    //creating stuff
-    this.map = new Map(200 , 10 , "blob.png");
-
-    //setting up gameloop
     requestAnimationFrame(() => this.gameLoop());
   }
+  private gameLoop():void{    
 
-  private setup() {
-    console.log("setup is run")
-
-    // let id:any = PIXI.loader.resources["res/images/treasureHunter.json"].textures; 
-
-    // let sprite:PIXI.Sprite = new PIXI.Sprite(id["blob.png"]);
-
-
-    // sprite.x = 30;
-    // sprite.y = 30;
-
-    // console.log(this.sprite.getBounds().height);
-
-    // Game.getInstance().pixi.stage.addChild(sprite);
-  }
-  private gameLoop():void{
 
     requestAnimationFrame(() => this.gameLoop());
   }
