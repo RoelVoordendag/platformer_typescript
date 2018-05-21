@@ -6,16 +6,17 @@ export default class CreateWorld{
     private length:number
     private heigth:number;
     private texture:string;
-    constructor(length:number , heigth:number){
+    constructor(length:number , heigth:number , texture:string){
         this.x = 0;
         this.y = 1;
         this.length = length;
         this.heigth = heigth;
-        
-        this.texture = "fill.png"
-
+        //standard filling texture
+        this.texture = texture;
+        //filling the length of the map with filler 
         for(let q=1; q<= this.heigth; q++){
             for(let i=0; i< this.length; i ++){
+                //top Layer needs to be a different sprite
                 if(this.y == this.heigth){
                     this.texture = "normal.png"
                 }

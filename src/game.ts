@@ -7,6 +7,7 @@ export default class Game {
   static instance: Game;
   public pixi: PIXI.Application;
   public length:number;
+  public map:CreateWorld;
   // public map: Map;
 
   //singleton function 
@@ -18,10 +19,13 @@ export default class Game {
   }
   private constructor() {
     //testing webpack
-    console.log("Hallo");
+    console.log("Game is Started");
 
     //length of the map
     this.length = 3000;
+
+    //filling the world
+    this.map = new CreateWorld(0, 2 , "fill.png");
 
     //making the canvas black and setting the canvas full screen
     this.pixi = new PIXI.Application(this.length, innerHeight, {
@@ -44,7 +48,7 @@ export default class Game {
   private setup() {
     console.log("setup is run");
     //generate the world for the character
-    let makeWorld = new CreateWorld(this.length /64, 3);
+    this.map = new CreateWorld(this.length /64, 2 , "fill.png");
 
     requestAnimationFrame(() => this.gameLoop());
   }
