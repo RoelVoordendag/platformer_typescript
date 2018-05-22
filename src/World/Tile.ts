@@ -1,6 +1,6 @@
 import Game from "../Game"
 
-export default class Map{
+export default class Tile{
     public x:number;
     public y:number;
     public texture:string;

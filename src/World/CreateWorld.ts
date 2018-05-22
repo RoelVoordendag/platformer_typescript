@@ -1,4 +1,4 @@
-import Map from "./Map"
+import Tile from "./Tile"
 
 export default class CreateWorld{
     private x:number;
@@ -20,7 +20,7 @@ export default class CreateWorld{
                 if(this.y == this.heigth){
                     this.texture = "normal.png"
                 }
-                let map = new Map( this.x , this.y , this.texture)
+                let tile = new Tile(this.x , this.y , this.texture)
                 this.x+=64;
             }
             this.y+=1;         

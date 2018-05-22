@@ -1,5 +1,5 @@
 import * as PIXI from "pixi.js";
-import Map from "./World/Map";
+import Tile from "./World/Tile";
 import CreateWorld from "./World/CreateWorld";
 
 export default class Game {
@@ -7,7 +7,7 @@ export default class Game {
   static instance: Game;
   public pixi: PIXI.Application;
   public length:number;
-  public map:CreateWorld;
+  public tile:CreateWorld;
   // public map: Map;
 
   //singleton function 
@@ -25,7 +25,7 @@ export default class Game {
     this.length = 3000;
 
     //filling the world
-    this.map = new CreateWorld(0, 2 , "fill.png");
+    this.tile = new CreateWorld(0, 2 , "fill.png");
 
     //making the canvas black and setting the canvas full screen
     this.pixi = new PIXI.Application(this.length, innerHeight, {
@@ -48,7 +48,9 @@ export default class Game {
   private setup() {
     console.log("setup is run");
     //generate the world for the character
-    this.map = new CreateWorld(this.length /64, 2 , "fill.png");
+    this.tile = new CreateWorld(this.length /64, 2 , "fill.png");
+
+    
 
     requestAnimationFrame(() => this.gameLoop());
   }
