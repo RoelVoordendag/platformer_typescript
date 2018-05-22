@@ -1,4 +1,5 @@
 import Tile from "./Tile"
+import Game from "../Game"
 
 export default class CreateWorld{
     private x:number;
@@ -6,6 +7,8 @@ export default class CreateWorld{
     private length:number
     private heigth:number;
     private texture:string;
+    public tiles: Array<Tile> = new Array
+
     constructor(length:number , heigth:number , texture:string){
         this.x = 0;
         this.y = 1;
@@ -21,6 +24,7 @@ export default class CreateWorld{
                     this.texture = "normal.png"
                 }
                 let tile = new Tile(this.x , this.y , this.texture)
+                this.tiles.push(tile)
                 this.x+=64;
             }
             this.y+=1;         

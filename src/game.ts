@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js";
 import Tile from "./World/Tile";
 import CreateWorld from "./World/CreateWorld";
+import Player from "./Characters/Player"
 
 export default class Game {
 
@@ -8,7 +9,8 @@ export default class Game {
   public pixi: PIXI.Application;
   public length:number;
   public tile:CreateWorld;
-  // public map: Map;
+  public player!: Player;
+  public keyState:any[] = []
 
   //singleton function 
   static getInstance(): Game {
@@ -18,9 +20,6 @@ export default class Game {
     return Game.instance;
   }
   private constructor() {
-    //testing webpack
-    console.log("Game is Started");
-
     //length of the map
     this.length = 3000;
 
@@ -41,21 +40,36 @@ export default class Game {
     PIXI.loader
       .add('test' , "res/images/treasureHunter.json")
       .add("tileset" ,"res/images/tileset.json")
+      .add('creeper', "res/images/Creeper-icon.png")
       .load()  
       PIXI.loader.onComplete.add(() => {this.setup()});
       
   }
+
   private setup() {
-    console.log("setup is run");
     //generate the world for the character
     this.tile = new CreateWorld(this.length /64, 2 , "fill.png");
 
-    
+    //new player on 0,0
+    this.player = new Player(0, 0)
+
+    //player movement listeners
+    window.addEventListener('keydown', function(e){
+      Game.getInstance().keyState[e.keyCode || e.which] = true;
+    }, true)
+    window.addEventListener('keyup', function(e){
+      Game.getInstance().keyState[e.keyCode || e.which] = false;
+    }, true)
+      
 
     requestAnimationFrame(() => this.gameLoop());
   }
   private gameLoop():void{    
-
+    //send key event to player, and update it
+    this.player.keyPressed(this.keyState);
+    this.player.update()
+    //gravity? kinda?
+    this.player.move(0, 5)
 
     requestAnimationFrame(() => this.gameLoop());
   }
