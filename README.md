@@ -10,3 +10,6 @@ Type in your console npm run build to build the game
 
 When you want to run the webserver and the wactcher type npm run start
 
+#Pull Reqeust Week 4 
+
+https://github.com/AvanDriel/prg8game/pull/1
