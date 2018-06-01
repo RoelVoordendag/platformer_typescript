@@ -6,15 +6,20 @@ export default class Characters{
     protected vx = 0
     protected vy = -5
     protected speed = 4
+    protected id:any;
     protected sprite: PIXI.Sprite
 
-    constructor(x: number, y: number, textureName: string){
-        this.sprite = new PIXI.Sprite(PIXI.loader.resources.creeper.texture);
-        this.sprite.x = x
+    constructor(x: number, y: number, tileset: string , spriteName:string){
+        this.id = PIXI.loader.resources[tileset].textures
+
+        this.sprite = new PIXI.Sprite(this.id[spriteName]);
+
+        this.sprite.x = x 
         this.sprite.y = y
         this.sprite.width = 64
-        this.sprite.height = 64
-        
+        this.sprite.height = new PIXI.Sprite(this.id[spriteName]).height
+               
+       
         Game.getInstance().pixi.stage.addChild(this.sprite)
     }
 
@@ -22,6 +27,7 @@ export default class Characters{
     update () {
         this.sprite.x = this.x
         this.sprite.y = this.y
+
     }
 
     move(vx: number, vy:number) {        
@@ -31,7 +37,7 @@ export default class Characters{
 
         //Check for collisions between player and tiles
         for(const tile of tiles) {
-            if (tile.isColliding(this.x + vx, this.y + vy)) {
+            if (tile.isColliding(this.sprite.getBounds().right + vx, this.sprite.getBounds().bottom + vy , this.sprite.getBounds().top)) {
                 willCollide = true                
                 break
             }

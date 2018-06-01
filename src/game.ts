@@ -41,6 +41,7 @@ export default class Game {
       .add('test' , "res/images/treasureHunter.json")
       .add("tileset" ,"res/images/tileset.json")
       .add('creeper', "res/images/Creeper-icon.png")
+      .add('player_moves'  , "res/images/moves_player.json" )
       .load()  
       PIXI.loader.onComplete.add(() => {this.setup()});
       
@@ -68,6 +69,12 @@ export default class Game {
     //send key event to player, and update it
     this.player.keyPressed(this.keyState);
     this.player.update()
+
+    // console.log(Game.getInstance().player.height);
+
+
+    //when more characters join push in array and call all in one loop! We also can call move(0,5) to fix fravity
+
     //gravity? kinda?
     this.player.move(0, 5)
 

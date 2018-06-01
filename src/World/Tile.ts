@@ -1,4 +1,6 @@
 import Game from "../Game"
+import Characters from "../Characters/Characters";
+
 
 export default class Tile{
     public x:number;
@@ -16,17 +18,17 @@ export default class Tile{
         this.sprite = new PIXI.Sprite(id[this.texture]);
         this.sprite.x = this.x; 
         this.sprite.y = window.innerHeight - this.sprite.height * this.y;
-        
+
         Game.getInstance().pixi.stage.addChild(this.sprite);
     }
 
     //check collision between given sprite and tiles
-    isColliding(x: number, y: number): boolean {          
+    isColliding(x: number, y_bottom: number , y_top:number): boolean {          
         if (
             x + 64 > this.x
             && x < this.x + this.width
-            && y + 64 > this.sprite.y
-            && y < this.sprite.y + this.heigth
+            && y_bottom  > this.sprite.y
+            && y_top < this.sprite.y + this.heigth            
         ) {
             return true
         }
