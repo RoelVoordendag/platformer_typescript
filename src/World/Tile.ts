@@ -23,12 +23,12 @@ export default class Tile{
     }
 
     //check collision between given sprite and tiles
-    isColliding(x: number, y_bottom: number , y_top:number): boolean {          
+    isColliding(x: number, y: number ): boolean {          
         if (
-            x + 64 > this.x
+            x + this.sprite.width> this.x
             && x < this.x + this.width
-            && y_bottom  > this.sprite.y
-            && y_top < this.sprite.y + this.heigth            
+            && y  > this.sprite.y
+            && y < this.sprite.y + this.heigth            
         ) {
             return true
         }

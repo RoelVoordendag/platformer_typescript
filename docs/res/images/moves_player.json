@@ -1,6 +1,6 @@
 {"frames": {
 
-"adventurer_stand.png":
+"hold.png":
 {
 	"frame": {"x":0,"y":0,"w":80,"h":110},
 	"rotated": false,
@@ -54,7 +54,7 @@
 	"sourceSize": {"w":80,"h":110},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"righ_walk1.png":
+"rigth_walk1.png":
 {
 	"frame": {"x":480,"y":0,"w":80,"h":110},
 	"rotated": false,
