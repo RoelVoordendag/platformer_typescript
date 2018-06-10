@@ -13,6 +13,7 @@ export default class Characters{
     protected jumpFrames:any = []
     protected leftFrames:any = []
     protected rightFrames:any = []
+    protected holdFrame:any = []
     protected Animationplaying!:string
 
     constructor(x: number, y: number, tileset: string , spriteName:string){

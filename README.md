@@ -19,3 +19,9 @@ de colliders meerdere vormen van players accepteren.
 Ik vind dit handig omdat alwin nu al een basis enemy heeft in zijn game. Ik heb voor Alwin de basis opgezet en kan die zelf beslissen om wat voor manier hij hier verder mee wilt. 
 
 https://github.com/AvanDriel/prg8game/pull/1
+
+## Peer Review Week 6
+
+Ik heb een peer review gedaan op Alwin's game de peer review kan je hier vinden:
+
+https://github.com/AvanDriel/prg8game/issues/2

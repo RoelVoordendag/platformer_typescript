@@ -34,12 +34,28 @@ export default class Player extends Characters{
             time:200
         }
         this.leftFrames.push(tempFrame)
+        for (let i = 0; i<2; i++){
+            var tempFrame = {
+                texture: PIXI.loader.resources['player_moves'].textures!['jump.png'],
+                time:200
+            }
+            this.jumpFrames.push(tempFrame)
+        }
+            var tempFrame = {
+                texture: PIXI.loader.resources['player_moves'].textures!['jump.png'],
+                time:200
+            }
     }
 
     //Handle keypress events
     keyPressed(keyState: any){        
         if (keyState[87]) { //w - up
-            this.move(0, -12)            
+            this.move(0, -12) 
+            if(this.Animationplaying !== "jump"){
+                this.Animationplaying = "jump"
+                this.sprite.textures = this.jumpFrames
+                this.sprite.play
+            }           
         }
         else if (keyState[65]) { //a - left
             this.move(-this.speed, 0)
@@ -57,6 +73,13 @@ export default class Player extends Characters{
                 this.sprite.play()
             }
         }else{
+            this.Animationplaying = "hold"
+            var tempFrame = {
+                texture: PIXI.loader.resources.player_moves.textures!['hold.png'],
+                time: 200
+            }
+            this.holdFrame.push(tempFrame)
+            this.sprite.textures = this.holdFrame;
             this.sprite.stop();
         }
     }    

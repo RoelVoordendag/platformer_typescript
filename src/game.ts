@@ -5,7 +5,7 @@ import Player from "./Characters/Player"
 
 export default class Game {
 
-  static instance: Game;
+  private static instance: Game;
   public pixi: PIXI.Application;
   public length:number;
   public tile:CreateWorld;
@@ -40,7 +40,6 @@ export default class Game {
     PIXI.loader
       .add('test' , "res/images/treasureHunter.json")
       .add("tileset" ,"res/images/tileset.json")
-      .add('creeper', "res/images/Creeper-icon.png")
       .add('player_moves'  , "res/images/moves_player.json" )
       .load()  
       PIXI.loader.onComplete.add(() => {this.setup()});
