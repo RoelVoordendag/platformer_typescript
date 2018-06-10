@@ -1,0 +1,30 @@
+{"frames": {
+
+"punch-1.png":
+{
+	"frame": {"x":0,"y":0,"w":80,"h":110},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":80,"h":110},
+	"sourceSize": {"w":80,"h":110},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"punch-2.png":
+{
+	"frame": {"x":80,"y":0,"w":80,"h":110},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":80,"h":110},
+	"sourceSize": {"w":80,"h":110},
+	"pivot": {"x":0.5,"y":0.5}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "player_attack.png",
+	"format": "RGBA8888",
+	"size": {"w":160,"h":110},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:90ebf71746f926ac6d4fcfb41f7ccb0f:d748d748f4f5f74b7590490fde253eb1:ffd3da2af0b9954f007399821bc9aa09$"
+}
+}

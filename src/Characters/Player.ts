@@ -1,12 +1,16 @@
 import Characters from "./Characters";
+import MeleeAttack from "../Strategy/MeleeAttack";
 
 export default class Player extends Characters{
     constructor(x: number, y: number){
         super(x, y, 'player_moves' , 'left_walk1.png') 
         this.x = x
         this.y = y
-        //setting up the animation
 
+        //the standard attack for player is Melee Attack
+        this.attackBehavior = new MeleeAttack(this);
+
+        //setting up the animation
         // this is for the right walk
         for (let  i= 1;i <= 2;i++) {
             var tempFrame = {
@@ -54,7 +58,7 @@ export default class Player extends Characters{
             if(this.Animationplaying !== "jump"){
                 this.Animationplaying = "jump"
                 this.sprite.textures = this.jumpFrames
-                this.sprite.play
+                this.sprite.play()
             }           
         }
         else if (keyState[65]) { //a - left
@@ -72,6 +76,10 @@ export default class Player extends Characters{
                 this.sprite.textures = this.rightFrames
                 this.sprite.play()
             }
+        }else if(keyState[32]) {
+            this.Animationplaying = "attack"
+            this.attackBehavior.attack();
+            this.sprite.play()            
         }else{
             this.Animationplaying = "hold"
             var tempFrame = {

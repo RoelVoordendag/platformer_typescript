@@ -7,7 +7,7 @@ export default class Characters{
     protected vy = -5
     protected speed = 4
     protected id:any
-    protected sprite: PIXI.extras.AnimatedSprite
+    public sprite: PIXI.extras.AnimatedSprite
     //frames for movemen
     protected Temp_Frameset: any = []
     protected jumpFrames:any = []
@@ -15,6 +15,7 @@ export default class Characters{
     protected rightFrames:any = []
     protected holdFrame:any = []
     protected Animationplaying!:string
+    protected attackBehavior !: AttackBehavior;
 
     constructor(x: number, y: number, tileset: string , spriteName:string){
         this.id = PIXI.loader.resources[tileset].textures
@@ -53,7 +54,6 @@ export default class Characters{
 
         //Check for collisions between player and tiles
         for(const tile of tiles) {
-
             // console.log(this.sprite.getGlobalPosition().x , this.sprite.getGlobalPosition().y);            
             if (tile.isColliding(this.sprite.getGlobalPosition().x + vx, this.sprite.getBounds().bottom +vy)) {
                 willCollide = true                
