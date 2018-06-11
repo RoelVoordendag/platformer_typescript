@@ -2,6 +2,7 @@ import Player from "../Characters/Player";
 
 export default class RangeAttack implements AttackBehavior {
     private player:Player
+    public attackFrames: any = []
     constructor(player:Player){
         //get player entity '
         this.player = player;

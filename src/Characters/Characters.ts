@@ -22,7 +22,7 @@ export default class Characters{
 
         //standard holding frame
         var tempFrame = {
-            texture: PIXI.loader.resources.player_moves.textures!['hold.png'],
+            texture: PIXI.loader.resources[tileset].textures!['hold.png'],
             time: 200
         }
 
@@ -44,7 +44,6 @@ export default class Characters{
     update () {
         this.sprite.x = this.x
         this.sprite.y = this.y
-
     }
 
     move(vx: number, vy:number) {        

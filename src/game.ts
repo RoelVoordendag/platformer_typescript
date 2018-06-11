@@ -2,6 +2,8 @@ import * as PIXI from "pixi.js";
 import Tile from "./World/Tile";
 import CreateWorld from "./World/CreateWorld";
 import Player from "./Characters/Player"
+import Enemy from "./Characters/Enemy";
+import Characters from "./Characters/Characters";
 
 export default class Game {
 
@@ -11,6 +13,8 @@ export default class Game {
   public tile:CreateWorld;
   public player!: Player;
   public keyState:any[] = []
+  public enemy!:Enemy
+  public charactersArray:Characters[] = []
 
   //singleton function 
   static getInstance(): Game {
@@ -42,16 +46,19 @@ export default class Game {
       .add("tileset" ,"res/images/tileset.json")
       .add('player_moves'  , "res/images/moves_player.json" )
       .add('player_attack' , "res/images/player_attack.json")
+      .add('enemy' , "res/images/enemy_Thing.json")
       .load()  
       PIXI.loader.onComplete.add(() => {this.setup()});
   }
 
   private setup() {
     //generate the world for the character
-    this.tile = new CreateWorld(this.length /64, 2 , "fill.png");
+    this.tile = new CreateWorld(this.length/64, 2 , "fill.png");
 
-    //new player on 0,0
-    this.player = new Player(0, 0)
+    //make players
+    this.player = new Player(0,0)
+    this.enemy = new Enemy(0,0);
+    this.charactersArray.push(this.player , this.enemy)
 
     //player movement listeners
     window.addEventListener('keydown', function(e){
@@ -65,14 +72,14 @@ export default class Game {
     requestAnimationFrame(() => this.gameLoop());
   }
   private gameLoop():void{    
-    //send key event to player, and update it
-    this.player.keyPressed(this.keyState);
-    this.player.update()
-
-    //when more characters join push in array and call all in one loop! We also can call move(0,5) to fix fravity
-
-    //gravity? kinda?
-    this.player.move(0, 5)
+    //letting all the players move
+    for(let c of this.charactersArray){
+        if(c instanceof Player){
+          c.keyPressed(this.keyState)
+        }
+        c.move(0,5)
+        c.update()
+    }
 
     requestAnimationFrame(() => this.gameLoop());
   }

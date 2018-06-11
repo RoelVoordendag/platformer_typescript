@@ -1,6 +1,6 @@
 {"frames": {
 
-"punch-1.png":
+"punch-2.png":
 {
 	"frame": {"x":0,"y":0,"w":80,"h":110},
 	"rotated": false,
@@ -9,7 +9,7 @@
 	"sourceSize": {"w":80,"h":110},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"punch-2.png":
+"punch-1.png":
 {
 	"frame": {"x":80,"y":0,"w":80,"h":110},
 	"rotated": false,
