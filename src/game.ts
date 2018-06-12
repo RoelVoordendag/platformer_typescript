@@ -15,6 +15,9 @@ export default class Game {
   public keyState:any[] = []
   public enemy!:Enemy
   public charactersArray:Characters[] = []
+  public playerContainer: PIXI.Container = new PIXI.Container()
+  public characterContainer: PIXI.Container = new PIXI.Container()
+  public worldContainer: PIXI.Container = new PIXI.Container()
 
   //singleton function 
   static getInstance(): Game {
@@ -35,10 +38,23 @@ export default class Game {
       backgroundColor: 0x000000,
       resolution: window.devicePixelRatio,
       autoResize: true,
+      forceCanvas: true
     });
+    this.pixi.renderer.view.style.position = "absolute";
+    this.pixi.renderer.view.style.display = "block";
+    this.pixi.renderer.autoResize = true;
+    this.pixi.renderer.resize(window.innerWidth, window.innerHeight);
     PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
     document.body.appendChild(this.pixi.view);
+
+    //setup camera
+    this.pixi.stage.addChild(this.worldContainer)
+    this.pixi.stage.addChild(this.characterContainer)
+
+
+    this.characterContainer.position.set(this.pixi.screen.width / 2 , this.pixi.screen.height / 2)
+    this.worldContainer.position.set(this.pixi.screen.width / 2 , this.pixi.screen.height / 2)
 
     //loading assets
     PIXI.loader
@@ -49,6 +65,7 @@ export default class Game {
       .add('enemy' , "res/images/enemy_Thing.json")
       .load()  
       PIXI.loader.onComplete.add(() => {this.setup()});
+
   }
 
   private setup() {
@@ -57,7 +74,7 @@ export default class Game {
 
     //make players
     this.player = new Player(0,0)
-    this.enemy = new Enemy(0,0);
+    this.enemy = new Enemy(500,60);  
     this.charactersArray.push(this.player , this.enemy)
 
     //player movement listeners
@@ -76,10 +93,19 @@ export default class Game {
     for(let c of this.charactersArray){
         if(c instanceof Player){
           c.keyPressed(this.keyState)
+
         }
+        if(c instanceof Enemy){
+          c.enemyMove()
+        }
+        //gravity kinda
         c.move(0,5)
         c.update()
     }
+    //updating camera
+    this.characterContainer.pivot.copy(this.player.sprite.position)
+    this.worldContainer.pivot.copy(this.player.sprite.position)
+    
 
     requestAnimationFrame(() => this.gameLoop());
   }

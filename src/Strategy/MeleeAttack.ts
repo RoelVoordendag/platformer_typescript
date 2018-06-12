@@ -22,5 +22,6 @@ export default class MeleeAttack implements AttackBehavior{
         this.attackFrames.push(tempFrame)          
         
         this.player.sprite.textures = this.attackFrames
+        
     }              
 }

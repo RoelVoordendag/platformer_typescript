@@ -19,16 +19,16 @@ export default class Tile{
         this.sprite.x = this.x; 
         this.sprite.y = window.innerHeight - this.sprite.height * this.y;
 
-        Game.getInstance().pixi.stage.addChild(this.sprite);
+        Game.getInstance().worldContainer.addChild(this.sprite);
     }
 
     //check collision between given sprite and tiles
-    isColliding(x: number, y: number ): boolean {          
+    isColliding(x: number, y: number , height:number , width:number ): boolean {          
         if (
-            x + this.sprite.width> this.x
-            && x < this.x + this.width
-            && y  > this.sprite.y
-            && y < this.sprite.y + this.heigth            
+            x + width> this.x
+            && x < this.x + width
+            && y + height > this.sprite.y
+            && y < this.sprite.y + height         
         ) {
             return true
         }

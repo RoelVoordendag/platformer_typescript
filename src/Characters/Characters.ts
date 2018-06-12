@@ -33,11 +33,9 @@ export default class Characters{
 
         this.sprite.x = x 
         this.sprite.y = y
-        // this.sprite.width = new PIXI.Sprite(this.id[spriteName]).width
-        // this.sprite.height = new PIXI.Sprite(this.id[spriteName]).height
         
        //characters in canvas
-        Game.getInstance().pixi.stage.addChild(this.sprite)
+        Game.getInstance().characterContainer.addChild(this.sprite)
     }
 
     //make the character move
@@ -54,8 +52,11 @@ export default class Characters{
         //Check for collisions between player and tiles
         for(const tile of tiles) {
             // console.log(this.sprite.getGlobalPosition().x , this.sprite.getGlobalPosition().y);            
-            if (tile.isColliding(this.sprite.getGlobalPosition().x + vx, this.sprite.getBounds().bottom +vy)) {
-                willCollide = true                
+            if (tile.isColliding(this.sprite.x + vx, this.sprite.y + vy , this.sprite.height , this.sprite.width)) {
+                willCollide = true        
+                //heigth en width meegeven
+                console.log("ik collide" + this.sprite.getBounds);
+                  
                 break
             }
         
