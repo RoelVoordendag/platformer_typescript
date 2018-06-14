@@ -1,14 +1,19 @@
 import Characters from "./Characters";
 import MeleeAttack from "../Strategy/MeleeAttack";
+import Game from "../game";
+import Enemy from "./Enemy";
 
 export default class Player extends Characters{
-    constructor(x: number, y: number){
-        super(x, y, 'player_moves' , 'left_walk1.png') 
+    public enemy:Enemy
+    constructor(x: number, y: number , e:Enemy){
+        super(x, y, 'player_moves' , 'left_walk1.png' , 5) 
         this.x = x
         this.y = y
 
+        this.enemy =e 
+
         //the standard attack for player is Melee Attack
-        this.attackBehavior = new MeleeAttack(this);
+        this.attackBehavior = new MeleeAttack(this , this.enemy);
 
         //setting up the animation
         // this is for the right walk
@@ -77,9 +82,10 @@ export default class Player extends Characters{
                 this.sprite.play()
             }
         }else if(keyState[32]) {
+            //fixing that button only can be pressed once
             this.Animationplaying = "attack"
             this.attackBehavior.attack();
-            this.sprite.play()            
+            this.sprite.play()    
         }else{
             this.Animationplaying = "hold"
             var tempFrame = {

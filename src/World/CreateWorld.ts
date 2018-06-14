@@ -23,6 +23,9 @@ export default class CreateWorld{
                 if(this.y == this.heigth){
                     this.texture = "normal.png"
                 }
+                if(this.x ==0 && this.y == this.heigth){
+                    this.texture = "left.png"
+                }                
                 let tile = new Tile(this.x , this.y , this.texture)
                 this.tiles.push(tile)
                 this.x+=64;

@@ -10,7 +10,7 @@ export default class Game {
   private static instance: Game;
   public pixi: PIXI.Application;
   public length:number;
-  public tile:CreateWorld;
+  public tile!:CreateWorld;
   public player!: Player;
   public keyState:any[] = []
   public enemy!:Enemy
@@ -29,9 +29,6 @@ export default class Game {
   private constructor() {
     //length of the map
     this.length = 3000;
-
-    //filling the world
-    this.tile = new CreateWorld(0, 2 , "fill.png");
 
     //making the canvas black and setting the canvas full screen
     this.pixi = new PIXI.Application(this.length, innerHeight, {
@@ -58,23 +55,22 @@ export default class Game {
 
     //loading assets
     PIXI.loader
-      .add('test' , "res/images/treasureHunter.json")
-      .add("tileset" ,"res/images/tileset.json")
+      .add('tileset' ,'res/images/tileset.json')
       .add('player_moves'  , "res/images/moves_player.json" )
       .add('player_attack' , "res/images/player_attack.json")
       .add('enemy' , "res/images/enemy_Thing.json")
       .load()  
       PIXI.loader.onComplete.add(() => {this.setup()});
-
   }
 
   private setup() {
     //generate the world for the character
-    this.tile = new CreateWorld(this.length/64, 2 , "fill.png");
+    this.tile = new CreateWorld(this.length/64, 4 , "fill.png")
 
     //make players
-    this.player = new Player(0,0)
     this.enemy = new Enemy(500,60);  
+    this.player = new Player(0,0 , this.enemy)
+
     this.charactersArray.push(this.player , this.enemy)
 
     //player movement listeners
@@ -84,8 +80,7 @@ export default class Game {
     window.addEventListener('keyup', function(e){
       Game.getInstance().keyState[e.keyCode || e.which] = false;
     }, true)
-      
-
+  
     requestAnimationFrame(() => this.gameLoop());
   }
   private gameLoop():void{    
@@ -93,7 +88,6 @@ export default class Game {
     for(let c of this.charactersArray){
         if(c instanceof Player){
           c.keyPressed(this.keyState)
-
         }
         if(c instanceof Enemy){
           c.enemyMove()

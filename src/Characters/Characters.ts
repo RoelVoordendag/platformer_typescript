@@ -9,6 +9,7 @@ export default class Characters{
     protected id:any
     public sprite: PIXI.extras.AnimatedSprite
     //frames for movemen
+    public health:number;
     protected Temp_Frameset: any = []
     protected jumpFrames:any = []
     protected leftFrames:any = []
@@ -17,8 +18,11 @@ export default class Characters{
     protected Animationplaying!:string
     protected attackBehavior !: AttackBehavior;
 
-    constructor(x: number, y: number, tileset: string , spriteName:string){
+    constructor(x: number, y: number, tileset: string , spriteName:string , health:number){
         this.id = PIXI.loader.resources[tileset].textures
+
+        //giving every character his one health value
+        this.health = health
 
         //standard holding frame
         var tempFrame = {
@@ -30,12 +34,13 @@ export default class Characters{
         this.sprite = new PIXI.extras.AnimatedSprite (
             this.Temp_Frameset
         )
-
         this.sprite.x = x 
         this.sprite.y = y
         
        //characters in canvas
         Game.getInstance().characterContainer.addChild(this.sprite)
+
+        console.log(this.sprite);
     }
 
     //make the character move
@@ -51,21 +56,15 @@ export default class Characters{
 
         //Check for collisions between player and tiles
         for(const tile of tiles) {
-            // console.log(this.sprite.getGlobalPosition().x , this.sprite.getGlobalPosition().y);            
             if (tile.isColliding(this.sprite.x + vx, this.sprite.y + vy , this.sprite.height , this.sprite.width)) {
-                willCollide = true        
-                //heigth en width meegeven
-                console.log("ik collide" + this.sprite.getBounds);
-                  
+                willCollide = true              
                 break
             }
-        
         }
         //If there is no collision, move!
         if (!willCollide) {
             this.x += vx
             this.y += vy
-        }     
-                
+        }  
     }
 }

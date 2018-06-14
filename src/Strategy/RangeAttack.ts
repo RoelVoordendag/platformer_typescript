@@ -4,10 +4,10 @@ export default class RangeAttack implements AttackBehavior {
     private player:Player
     public attackFrames: any = []
     constructor(player:Player){
-        //get player entity '
+        //get player entity
         this.player = player;
     }
     attack(){
-        console.log("ik ben een range attack");
+        console.log("ik ben een range attack");       
     }
 }
