@@ -1,0 +1,39 @@
+{"frames": {
+
+"redCrystal.png":
+{
+	"frame": {"x":0,"y":0,"w":32,"h":30},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":30},
+	"sourceSize": {"w":32,"h":30},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"rock.png":
+{
+	"frame": {"x":32,"y":0,"w":22,"h":22},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":22,"h":22},
+	"sourceSize": {"w":22,"h":22},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"redJewel.png":
+{
+	"frame": {"x":54,"y":0,"w":24,"h":22},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":22},
+	"sourceSize": {"w":24,"h":22},
+	"pivot": {"x":0.5,"y":0.5}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "pickup.png",
+	"format": "RGBA8888",
+	"size": {"w":78,"h":30},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:864d539d33f462d94ac9dc266a88a8e3:ba75d565765997ed76c442dce57604d2:29029b45bcb721028e6338bdfffd8852$"
+}
+}

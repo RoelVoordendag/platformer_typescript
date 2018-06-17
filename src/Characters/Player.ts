@@ -2,18 +2,23 @@ import Characters from "./Characters";
 import MeleeAttack from "../Strategy/MeleeAttack";
 import Game from "../game";
 import Enemy from "./Enemy";
+import RangeAttack from "../Strategy/RangeAttack";
 
 export default class Player extends Characters{
     public enemy:Enemy
-    constructor(x: number, y: number , e:Enemy){
+    private game:Game
+    constructor(x: number, y: number , e:Enemy , g:Game){
         super(x, y, 'player_moves' , 'left_walk1.png' , 5) 
         this.x = x
         this.y = y
 
         this.enemy =e 
+        this.game = g
 
         //the standard attack for player is Melee Attack
-        this.attackBehavior = new MeleeAttack(this , this.enemy);
+        // this.attackBehavior = new MeleeAttack(this , this.enemy);
+
+        this.attackBehavior = new RangeAttack(this , this.enemy , this.game)
 
         //setting up the animation
         // this is for the right walk

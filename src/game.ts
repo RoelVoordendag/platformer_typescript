@@ -4,6 +4,9 @@ import CreateWorld from "./World/CreateWorld";
 import Player from "./Characters/Player"
 import Enemy from "./Characters/Enemy";
 import Characters from "./Characters/Characters";
+import Rock from "./Rock";
+import GameObject from "./GameObject/GameObject";
+import RangePickUp from "./GameObject/RangePickUp";
 
 export default class Game {
 
@@ -15,9 +18,14 @@ export default class Game {
   public keyState:any[] = []
   public enemy!:Enemy
   public charactersArray:Characters[] = []
+  public rocks:Array<Rock> = new Array<Rock>()
+  public gameObjects:GameObject[] = []
+  public heigth:number
+  public rangePickup!:RangePickUp;
   public playerContainer: PIXI.Container = new PIXI.Container()
   public characterContainer: PIXI.Container = new PIXI.Container()
   public worldContainer: PIXI.Container = new PIXI.Container()
+  public gameObjectContainer: PIXI.Container = new PIXI.Container()
 
   //singleton function 
   static getInstance(): Game {
@@ -27,9 +35,10 @@ export default class Game {
     return Game.instance;
   }
   private constructor() {
-    //length of the map
+    //length of the map & heigth
     this.length = 3000;
-
+    this.heigth = 4;
+  
     //making the canvas black and setting the canvas full screen
     this.pixi = new PIXI.Application(this.length, innerHeight, {
       backgroundColor: 0x000000,
@@ -48,10 +57,13 @@ export default class Game {
     //setup camera
     this.pixi.stage.addChild(this.worldContainer)
     this.pixi.stage.addChild(this.characterContainer)
+    this.pixi.stage.addChild(this.gameObjectContainer)
 
 
     this.characterContainer.position.set(this.pixi.screen.width / 2 , this.pixi.screen.height / 2)
     this.worldContainer.position.set(this.pixi.screen.width / 2 , this.pixi.screen.height / 2)
+    this.gameObjectContainer.position.set(this.pixi.screen.width / 2 , this.pixi.screen.height / 2)
+
 
     //loading assets
     PIXI.loader
@@ -59,19 +71,27 @@ export default class Game {
       .add('player_moves'  , "res/images/moves_player.json" )
       .add('player_attack' , "res/images/player_attack.json")
       .add('enemy' , "res/images/enemy_Thing.json")
+      .add('pickups' , 'res/images/pickup.json')
       .load()  
       PIXI.loader.onComplete.add(() => {this.setup()});
   }
-
+  addRock(r:Rock){
+    this.rocks.push(r)
+  }
   private setup() {
     //generate the world for the character
-    this.tile = new CreateWorld(this.length/64, 4 , "fill.png")
+    this.tile = new CreateWorld(this.length/64, this.heigth , "fill.png")
 
     //make players
-    this.enemy = new Enemy(500,60);  
-    this.player = new Player(0,0 , this.enemy)
+    this.enemy = new Enemy(500,60 , this);  
+    this.player = new Player(0,0 , this.enemy , this)
 
     this.charactersArray.push(this.player , this.enemy)
+
+    //setup pickup
+    this.rangePickup = new RangePickUp(100 , this)
+    
+    this.gameObjects.push(this.rangePickup)
 
     //player movement listeners
     window.addEventListener('keydown', function(e){
@@ -95,11 +115,15 @@ export default class Game {
         //gravity kinda
         c.move(0,5)
         c.update()
+
+        for(let r of this.rocks){
+          r.move()
+        }
     }
     //updating camera
     this.characterContainer.pivot.copy(this.player.sprite.position)
     this.worldContainer.pivot.copy(this.player.sprite.position)
-    
+    this.gameObjectContainer.pivot.copy(this.player.sprite.position)
 
     requestAnimationFrame(() => this.gameLoop());
   }

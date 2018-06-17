@@ -4,11 +4,14 @@ import Game from "../game";
 export default class Enemy extends Characters{
 
     private randomNumber:number
+    private game:Game
 
-    constructor(x:number , y:number){
+    constructor(x:number , y:number , g:Game){
         super(x , y , "enemy" , "hold.png" , 100)
         this.x = x
         this.y = y
+
+        this.game = g 
 
         this.speed = 4
 
@@ -16,13 +19,6 @@ export default class Enemy extends Characters{
 
         setTimeout(() => this.enemyMoveGenerator(), 500 )
 
-         // add bottom healthbar
-        //  let bottomHealthbar = new PIXI.Graphics();
-        //  bottomHealthbar.beginFill(0x444444);
-        //  bottomHealthbar.drawRect(0, 0, 100, 15);
-        //  bottomHealthbar.endFill();
-        //  this.sprite.addChild(bottomHealthbar); // add bottom healthbar to container
-         // add healthbar
          let healthbar = new PIXI.Graphics();
          this.healthbar = healthbar;
          this.healthbar.beginFill(0xF33636);
@@ -66,10 +62,11 @@ export default class Enemy extends Characters{
 
     }
     damage(){
-        this.health -= 33;
+        this.health -= 33.4;
         if(this.health == 0 || this.health <0){
+            this.game.characterContainer.removeChild(this.sprite)
             this.sprite.removeChild(this.healthbar)
-            this.sprite.visible = false
+            this.sprite.y = -100
         }
     }
     enemyMoveGenerator(){
