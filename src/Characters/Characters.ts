@@ -17,6 +17,7 @@ export default class Characters{
     protected holdFrame:any = []
     protected Animationplaying!:string
     protected attackBehavior !: AttackBehavior;
+    protected healthbar:any
 
     constructor(x: number, y: number, tileset: string , spriteName:string , health:number){
         this.id = PIXI.loader.resources[tileset].textures

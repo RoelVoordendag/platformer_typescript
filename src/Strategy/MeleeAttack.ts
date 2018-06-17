@@ -46,7 +46,6 @@ export default class MeleeAttack implements AttackBehavior{
     coolDown(){
         let interval = setInterval(()=>{
             this.countDown = false
-            console.log("cooldown" + this.coolDown);
             clearInterval(interval)
       },300)
     }
