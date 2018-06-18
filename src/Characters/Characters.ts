@@ -53,7 +53,7 @@ export default class Characters{
     move(vx: number, vy:number) {        
         //Get all colliders from map
         let tiles = Game.getInstance().tile.tiles
-        let willCollide = false
+        let willCollide = false        
 
         //Check for collisions between player and tiles
         for(const tile of tiles) {

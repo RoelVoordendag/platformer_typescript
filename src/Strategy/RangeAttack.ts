@@ -37,8 +37,6 @@ export default class RangeAttack implements AttackBehavior {
             
             this.player.sprite.textures = this.attackFrames
 
-            console.log(this.player.sprite.x , this.player.sprite.y);
-
             this.rock = new Rock(this.player.sprite.x , this.player.sprite.y , this.game)
 
             this.game.addRock(this.rock)

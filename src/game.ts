@@ -89,7 +89,7 @@ export default class Game {
     this.charactersArray.push(this.player , this.enemy)
 
     //setup pickup
-    this.rangePickup = new RangePickUp(100 , this)
+    this.rangePickup = new RangePickUp(250 , this)
     
     this.gameObjects.push(this.rangePickup)
 
@@ -115,9 +115,11 @@ export default class Game {
         //gravity kinda
         c.move(0,5)
         c.update()
-
         for(let r of this.rocks){
           r.move()
+        }
+        for(let gO of this.gameObjects){
+          gO.checkCollision()
         }
     }
     //updating camera

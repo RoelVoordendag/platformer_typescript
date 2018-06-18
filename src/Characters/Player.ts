@@ -18,7 +18,7 @@ export default class Player extends Characters{
         //the standard attack for player is Melee Attack
         // this.attackBehavior = new MeleeAttack(this , this.enemy);
 
-        this.attackBehavior = new RangeAttack(this , this.enemy , this.game)
+        this.attackBehavior = new MeleeAttack(this , this.enemy)
 
         //setting up the animation
         // this is for the right walk
@@ -59,6 +59,11 @@ export default class Player extends Characters{
                 texture: PIXI.loader.resources['player_moves'].textures!['jump.png'],
                 time:200
             }
+    }
+    changeAttack(a:string){
+        if(a == "range"){
+            this.attackBehavior = new RangeAttack(this , this.enemy , this.game)
+        }
     }
 
     //Handle keypress events
