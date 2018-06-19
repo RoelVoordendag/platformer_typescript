@@ -1,5 +1,6 @@
 import Game from "../game";
 import Player from "../Characters/Player";
+import RangeAttack from "../Strategy/RangeAttack";
 
 export default class GameObject {
     protected x:number
@@ -24,22 +25,15 @@ export default class GameObject {
         this.game.gameObjectContainer.addChild(this.sprite);
     }
     checkCollision(){
-        // console.log(this.player.sprite.x , this.player.sprite.y , this.game.player.sprite.y + this.game.player.sprite.height);
-        // console.log(this.sprite.x , this.sprite.y, this.sprite.width , this.sprite.height );
-        
          if (
             this.player.sprite.x + this.player.sprite.width> this.sprite.x
             && this.player.sprite.x < this.sprite.x + this.sprite.width
             && this.player.sprite.y + this.player.sprite.height > this.sprite.y
             && this.player.sprite.y < this.sprite.y + this.sprite.height         
         ){
-            this.player.changeAttack("range")
+            this.player.changeAttack(new RangeAttack(this.player , this.game))
             this.game.gameObjectContainer.removeChild(this.sprite)
             this.sprite.y = -100
-        }else{
-            // console.log("you suck dick");
-            
         }
-
     }
 }

@@ -2,7 +2,6 @@ import Characters from "./Characters";
 import MeleeAttack from "../Strategy/MeleeAttack";
 import Game from "../game";
 import Enemy from "./Enemy";
-import RangeAttack from "../Strategy/RangeAttack";
 
 export default class Player extends Characters{
     public enemy:Enemy
@@ -15,8 +14,6 @@ export default class Player extends Characters{
         this.enemy =e 
         this.game = g
 
-        //the standard attack for player is Melee Attack
-        // this.attackBehavior = new MeleeAttack(this , this.enemy);
 
         this.attackBehavior = new MeleeAttack(this , this.enemy)
 
@@ -60,10 +57,8 @@ export default class Player extends Characters{
                 time:200
             }
     }
-    changeAttack(a:string){
-        if(a == "range"){
-            this.attackBehavior = new RangeAttack(this , this.enemy , this.game)
-        }
+    changeAttack(a:AttackBehavior){
+        this.attackBehavior = a;
     }
 
     //Handle keypress events

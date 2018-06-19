@@ -40,6 +40,7 @@ export default class Characters{
         
        //characters in canvas
         Game.getInstance().characterContainer.addChild(this.sprite)
+        
 
         console.log(this.sprite);
     }

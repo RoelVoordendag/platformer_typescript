@@ -4,4 +4,3 @@ node_modules
 symbols.json
 .idea
 /build
-/docs/dist.js

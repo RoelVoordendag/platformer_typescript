@@ -6,15 +6,12 @@ import Game from "../game";
 export default class RangeAttack implements AttackBehavior {
     private player:Player
     public attackFrames: any = []
-    private enemy:Enemy
     private countDown:boolean
     private rock!:Rock
     private game:Game
-    constructor(player:Player , e:Enemy , g:Game){
+    constructor(player:Player , g:Game){
         //get player entity
         this.player = player;
-        //get enemy entitiy
-        this.enemy = e
         //setting up countdown
         this.countDown = false
         //setting up game entity
@@ -38,8 +35,7 @@ export default class RangeAttack implements AttackBehavior {
             this.player.sprite.textures = this.attackFrames
 
             this.rock = new Rock(this.player.sprite.x , this.player.sprite.y , this.game)
-
-            this.game.addRock(this.rock)
+           this.game.addRock(this.rock)
             
         }else{
             // console.log("Attack is Blocked");
