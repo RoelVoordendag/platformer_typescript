@@ -1,5 +1,6 @@
 import Player from "../Characters/Player";
 import Enemy from "../Characters/Enemy";
+import Game from "../game";
 
 export default class MeleeAttack implements AttackBehavior{
     private player: Player;
@@ -7,7 +8,10 @@ export default class MeleeAttack implements AttackBehavior{
     public enemy:Enemy
     public attackFrames: any =[]
     private countDown:boolean
-    constructor(player:Player, e:Enemy){
+    private game:Game
+    constructor(player:Player, e:Enemy, g:Game){
+        //setup game
+        this.game = g
         //get player property here 
         this.player = player;  
         //setting range for the attack
@@ -36,8 +40,10 @@ export default class MeleeAttack implements AttackBehavior{
             this.player.sprite.textures = this.attackFrames
 
             this.coolDown()
-            
-            this.enemy.checkCollsionForAttack(this.player.sprite.x + this.range , this.player.sprite.y , this.player.sprite.height , this.player.sprite.width)
+
+            for(let e of this.game.enemies){
+                e.checkCollsionForAttack(this.player.sprite.x + this.range , this.player.sprite.y , this.player.sprite.height , this.player.sprite.width)
+            }  
         }else{
             console.log("Attack will be blocked");
             

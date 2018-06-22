@@ -1,10 +1,13 @@
 import Characters from "./Characters";
 import Game from "../game";
+import Observer from "../Observers/Observer";
 
-export default class Enemy extends Characters{
+export default class Enemy extends Characters implements Observer{
 
     private randomNumber:number
     private game:Game
+    private countDown:boolean
+
 
     constructor(x:number , y:number , g:Game){
         super(x , y , "enemy" , "hold.png" , 100)
@@ -17,6 +20,8 @@ export default class Enemy extends Characters{
 
         this.randomNumber = 0
 
+        this.countDown = false
+
         setTimeout(() => this.enemyMoveGenerator(), 500 )
 
          let healthbar = new PIXI.Graphics();
@@ -27,18 +32,14 @@ export default class Enemy extends Characters{
          this.sprite.addChild(this.healthbar); // add top healthbar to containe
     }
     enemyMove(){    
-        //random number determines which direction the player goes to
-        // if(this.randomNumber <= 250){
-        //     // rigth
-        //     this.move(this.speed , 0)            
-        // }else if(this.randomNumber <=500 && this.randomNumber >= 250){
-        //     // left
-        //     this.move(-this.speed , 0)  
-        // }else if(this.randomNumber <=750 && this.randomNumber >= 500){
-        //     //up
-        //     this.move(0 , -this.speed)    
-        // }
-        // console.log(this.health);
+        // random number determines which direction the player goes to
+        if(this.randomNumber <= 250){
+            // rigth
+            this.move(3 , 0)            
+        }else if(this.randomNumber <=500 && this.randomNumber >= 250){
+            // left
+            this.move(-3 , 0)  
+        }
 
         if(this.health > 0){
          this.healthbar.width = this.health
@@ -62,19 +63,38 @@ export default class Enemy extends Characters{
 
     }
     damage(){
-        this.health -= 33.4;
         if(this.health == 0 || this.health <0){
             this.game.characterContainer.removeChild(this.sprite)
             this.sprite.removeChild(this.healthbar)
             this.sprite.y = -100
-        }
+        }        
+        this.health -= 33.4;
     }
     enemyMoveGenerator(){
         //with the random generatad number the enemy goes a certain with what will not be predictable
-        this.randomNumber =  Math.floor((Math.random() * 750) + 1);
+        this.randomNumber =  Math.floor((Math.random() * 500) + 1);
         
         this.enemyMove()
         //to keep generating random numbers
-        setTimeout(() => this.enemyMoveGenerator(), 1000 )
+        setTimeout(() => this.enemyMoveGenerator(), 500 )
+    }
+
+    notify(){
+        if(!this.countDown){
+            this.damage()
+
+            console.log("enemy has been notified got damage");
+
+            this.countDown = true
+
+            this.coolDown() 
+        }
+    }
+
+    coolDown(){
+        let interval = setInterval(()=>{
+            this.countDown = false
+            clearInterval(interval)
+      },1000)
     }
 }

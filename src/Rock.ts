@@ -21,7 +21,7 @@ export default class Rock {
         
         this.game.worldContainer.addChild(this.sprite)
 
-        this.xspeed = 5;
+        this.xspeed = 2;
     }
     move(){
         let collide = false;
@@ -29,9 +29,11 @@ export default class Rock {
         this.sprite.x += this.xspeed 
 
         for(let r of this.game.rocks){
-            if(this.game.enemy.checkCollsionForAttack(r.sprite.x , r.sprite.y , r.sprite.height , r.sprite.width)){
-                collide = true
-                break
+            for(let e of this.game.enemies){
+                if(e.checkCollsionForAttack(r.sprite.x , r.sprite.y , r.sprite.height , r.sprite.width)){
+                    collide = true
+                    break
+                }
             }
         }    
         

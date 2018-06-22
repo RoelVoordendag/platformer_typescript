@@ -2,10 +2,13 @@ import Characters from "./Characters";
 import MeleeAttack from "../Strategy/MeleeAttack";
 import Game from "../game";
 import Enemy from "./Enemy";
+import Subject from "../Observers/Subject";
+import Observer from "../Observers/Observer";
 
-export default class Player extends Characters{
+export default class Player extends Characters implements Subject{
     public enemy:Enemy
     private game:Game
+    public observers:Observer[] = []
     constructor(x: number, y: number , e:Enemy , g:Game){
         super(x, y, 'player_moves' , 'left_walk1.png' , 5) 
         this.x = x
@@ -15,7 +18,7 @@ export default class Player extends Characters{
         this.game = g
 
 
-        this.attackBehavior = new MeleeAttack(this , this.enemy)
+        this.attackBehavior = new MeleeAttack(this , this.enemy , this.game)
 
         //setting up the animation
         // this is for the right walk
@@ -91,6 +94,10 @@ export default class Player extends Characters{
             this.Animationplaying = "attack"
             this.attackBehavior.attack();
             this.sprite.play()    
+        }else if(keyState[70]){
+            for(let o of this.observers){
+                o.notify()
+            }
         }else{
             this.Animationplaying = "hold"
             var tempFrame = {
@@ -101,5 +108,12 @@ export default class Player extends Characters{
             this.sprite.textures = this.holdFrame;
             this.sprite.stop();
         }
+    }
+    subscribe(o:Observer){
+        //add observer to class
+        this.observers.push(o)
+    }
+    unsubscribe(o:Observer){
+        //unsubscribe enemy from damage
     }    
 }

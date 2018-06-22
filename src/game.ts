@@ -17,6 +17,7 @@ export default class Game {
   public player!: Player;
   public keyState:any[] = []
   public enemy!:Enemy
+  public enemies:Enemy[] = []
   public charactersArray:Characters[] = []
   public rocks:Array<Rock> = new Array<Rock>()
   public gameObjects:GameObject[] = []
@@ -26,6 +27,7 @@ export default class Game {
   public characterContainer: PIXI.Container = new PIXI.Container()
   public worldContainer: PIXI.Container = new PIXI.Container()
   public gameObjectContainer: PIXI.Container = new PIXI.Container()
+  public UIcontainer: PIXI.Container = new PIXI.Container()
 
   //singleton function 
   static getInstance(): Game {
@@ -58,12 +60,12 @@ export default class Game {
     this.pixi.stage.addChild(this.worldContainer)
     this.pixi.stage.addChild(this.characterContainer)
     this.pixi.stage.addChild(this.gameObjectContainer)
-
+    this.pixi.stage.addChild(this.UIcontainer)
 
     this.characterContainer.position.set(this.pixi.screen.width / 2 , this.pixi.screen.height / 2)
     this.worldContainer.position.set(this.pixi.screen.width / 2 , this.pixi.screen.height / 2)
     this.gameObjectContainer.position.set(this.pixi.screen.width / 2 , this.pixi.screen.height / 2)
-
+    this.UIcontainer.position.set(this.pixi.screen.width / 2 , this.pixi.screen.height / 2)
 
     //loading assets
     PIXI.loader
@@ -83,10 +85,18 @@ export default class Game {
     this.tile = new CreateWorld(this.length/64, this.heigth , "fill.png")
 
     //make players
-    this.enemy = new Enemy(500,60 , this);  
+    for(let i = 0; i<=5; i++){ 
+      this.enemy = new Enemy(500 + (i*5) , 0 , this)
+      this.enemies.push(this.enemy)
+      this.charactersArray.push(this.enemy)
+    }
     this.player = new Player(0,0 , this.enemy , this)
 
-    this.charactersArray.push(this.player , this.enemy)
+    for(let e of this.enemies){
+      this.player.subscribe(e)
+    }
+
+    this.charactersArray.push(this.player)
 
     //setup pickup
     this.rangePickup = new RangePickUp(250 , this)
@@ -126,6 +136,7 @@ export default class Game {
     this.characterContainer.pivot.copy(this.player.sprite.position)
     this.worldContainer.pivot.copy(this.player.sprite.position)
     this.gameObjectContainer.pivot.copy(this.player.sprite.position)
+    this.UIcontainer.pivot.copy(this.player.sprite.position)
 
     requestAnimationFrame(() => this.gameLoop());
   }
