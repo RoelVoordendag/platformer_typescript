@@ -37,3 +37,11 @@ Je kan rond bewegen met w,a en d. Je kan attacken door op de spatiebalk te drukk
 ## Strategy
 
 ## Observer
+
+
+## UML
+
+![picture](docs/res/images/uml.png)
+
+)
+
