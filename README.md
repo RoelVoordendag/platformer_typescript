@@ -34,14 +34,17 @@ Je kan rond bewegen met w,a en d. Je kan attacken door op de spatiebalk te drukk
 
 ## Singleton
 
+Ik roep mijn Singleton aan in mijn Tile.js in de class voeg ik een nieuwe tile toe aan mijn container in de game. Ik gebruik mijn singleton ook in de Character class om mijn characters toe te voegen aan te game door ze aan de CharactersContainer toe te voegen.
+
 ## Strategy
 
+Ik pas mijn strategy toe in player. Hier kan de player twee verschillende attacks hebben. Hij kan een normaal melee attack hebben of een range attack er kan worden gewisseld tussen deze attacks door zijn strategy. Als er collision is met de RangePickup verander ik de attack behavior van de player door de functie changeAttack aan te spreken in player. Wanneer ik de functie aanroep geef ik ook gelijk de nieuwe behavior mee!
+
 ## Observer
+
+Als observer heb ik een attack gemaakt die alle enemies damaged wanneer de player op "f" drukt. Mijn player is daarom ook de Subject bij hem worden ook alle enemies "gesubscripted" dit gebeurd in de game class via de functie subscribe in de player class. Wanneer de player op "f" drukt worden alle enemies genotified en wordt de functie damage aangeroepen waardoor ze damage krijgen.
 
 
 ## UML
 
 ![picture](docs/res/images/uml.png)
-
-)
-
