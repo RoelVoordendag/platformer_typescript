@@ -23,7 +23,7 @@ export default class Tile{
     }
 
     //check collision between given sprite and tiles
-    isColliding(x: number, y: number , height:number , width:number ): boolean {          
+    public isColliding(x: number, y: number , height:number , width:number ): boolean {          
         if (
             x + width> this.x
             && x < this.x + width

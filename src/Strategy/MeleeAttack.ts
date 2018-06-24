@@ -20,7 +20,7 @@ export default class MeleeAttack implements AttackBehavior{
         //setting up countdown
         this.countDown = false
     }
-    attack(){
+    public attack() : void{
         if(!this.countDown){
             for (let i= 1;i <= 2;i++) {        
                 var tempFrame = {
@@ -49,7 +49,7 @@ export default class MeleeAttack implements AttackBehavior{
             
         }
     }
-    coolDown(){
+    private coolDown() : void{
         let interval = setInterval(()=>{
             this.countDown = false
             clearInterval(interval)

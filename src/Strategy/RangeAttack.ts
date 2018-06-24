@@ -17,7 +17,7 @@ export default class RangeAttack implements AttackBehavior {
         //setting up game entity
         this.game = g
     }
-    attack(){
+    public attack() : void{
         console.log("ik ben een range attack");       
         if(!this.countDown){
             for (let i= 1;i <= 2;i++) {        
@@ -41,7 +41,7 @@ export default class RangeAttack implements AttackBehavior {
             // console.log("Attack is Blocked");
         }
     }
-    coolDown(){
+    private coolDown() : void{
         let interval = setInterval(()=>{
             this.countDown = false
             clearInterval(interval)

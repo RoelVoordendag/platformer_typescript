@@ -23,7 +23,7 @@ export default class Rock {
 
         this.xspeed = 2;
     }
-    move(){
+    public move() : void{
         let collide = false;
 
         this.sprite.x += this.xspeed 

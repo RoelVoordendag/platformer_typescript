@@ -24,7 +24,7 @@ export default class GameObject {
 
         this.game.gameObjectContainer.addChild(this.sprite);
     }
-    checkCollision(){
+    public checkCollision() : void{
          if (
             this.player.sprite.x + this.player.sprite.width> this.sprite.x
             && this.player.sprite.x < this.sprite.x + this.sprite.width

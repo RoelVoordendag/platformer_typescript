@@ -2,6 +2,8 @@
 
 Download/clone the game and run npm install
 
+Speelbare link:https://roelvoordendag.github.io/platformer_typescript/
+
 # How to build the game 
 
 Type in your console npm run build to build the game
@@ -25,3 +27,13 @@ https://github.com/AvanDriel/prg8game/pull/1
 Ik heb een peer review gedaan op Alwin's game de peer review kan je hier vinden:
 
 https://github.com/AvanDriel/prg8game/issues/2
+
+## Controls
+
+Je kan rond bewegen met w,a en d. Je kan attacken door op de spatiebalk te drukken en je kan alle enemies tegelijk damgegen door op f te drukken.
+
+## Singleton
+
+## Strategy
+
+## Observer

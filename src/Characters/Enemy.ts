@@ -31,7 +31,7 @@ export default class Enemy extends Characters implements Observer{
          this.healthbar.endFill();
          this.sprite.addChild(this.healthbar); // add top healthbar to containe
     }
-    enemyMove(){    
+    public enemyMove(): void{    
         // random number determines which direction the player goes to
         if(this.randomNumber <= 250){
             // rigth
@@ -48,7 +48,7 @@ export default class Enemy extends Characters implements Observer{
         }
 
     }
-    checkCollsionForAttack(x: number, y: number , height:number , width:number ) : boolean{
+    public checkCollsionForAttack(x: number, y: number , height:number , width:number ) : boolean{
         if (
             x + width> this.x
             && x < this.x + width
@@ -62,7 +62,7 @@ export default class Enemy extends Characters implements Observer{
         return false
 
     }
-    damage(){
+    public damage() : void{
         if(this.health == 0 || this.health <0){
             this.game.characterContainer.removeChild(this.sprite)
             this.sprite.removeChild(this.healthbar)
@@ -70,7 +70,7 @@ export default class Enemy extends Characters implements Observer{
         }        
         this.health -= 33.4;
     }
-    enemyMoveGenerator(){
+    private enemyMoveGenerator()  :void{
         //with the random generatad number the enemy goes a certain with what will not be predictable
         this.randomNumber =  Math.floor((Math.random() * 500) + 1);
         
@@ -79,7 +79,7 @@ export default class Enemy extends Characters implements Observer{
         setTimeout(() => this.enemyMoveGenerator(), 500 )
     }
 
-    notify(){
+    public notify() : void{
         if(!this.countDown){
             this.damage()
 
@@ -91,7 +91,7 @@ export default class Enemy extends Characters implements Observer{
         }
     }
 
-    coolDown(){
+    private coolDown() : void{
         let interval = setInterval(()=>{
             this.countDown = false
             clearInterval(interval)

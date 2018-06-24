@@ -60,12 +60,12 @@ export default class Player extends Characters implements Subject{
                 time:200
             }
     }
-    changeAttack(a:AttackBehavior){
+    public changeAttack(a:AttackBehavior) : void{
         this.attackBehavior = a;
     }
 
     //Handle keypress events
-    keyPressed(keyState: any){        
+    public keyPressed(keyState: any) : void{        
         if (keyState[87]) { //w - up
             this.move(0, -12) 
             if(this.Animationplaying !== "jump"){
@@ -109,11 +109,11 @@ export default class Player extends Characters implements Subject{
             this.sprite.stop();
         }
     }
-    subscribe(o:Observer){
+    public subscribe(o:Observer): void{
         //add observer to class
         this.observers.push(o)
     }
-    unsubscribe(o:Observer){
+    public unsubscribe(o:Observer) : void{
         //unsubscribe enemy from damage
     }    
 }

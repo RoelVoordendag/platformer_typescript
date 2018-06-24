@@ -46,12 +46,12 @@ export default class Characters{
     }
 
     //make the character move
-    update () {
+    public update () : void {
         this.sprite.x = this.x
         this.sprite.y = this.y
     }
 
-    move(vx: number, vy:number) {        
+    public move(vx: number, vy:number) : void {        
         //Get all colliders from map
         let tiles = Game.getInstance().tile.tiles
         let willCollide = false        

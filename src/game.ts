@@ -77,7 +77,7 @@ export default class Game {
       .load()  
       PIXI.loader.onComplete.add(() => {this.setup()});
   }
-  addRock(r:Rock){
+  public addRock(r:Rock) : void{
     this.rocks.push(r)
   }
   private setup() {
